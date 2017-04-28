@@ -1,0 +1,10 @@
+#
+#Mon Apr 24 15:18:36 IST 2017
+operators=-~as~envelope~as_edge_graph~load_shortest_paths~all_pairs_shortest_path~+~one_of~\!\=~path_between~paths_between~\:\:~circle~length~internal_at
+plugins=msi.gama.core
+attributes=vertices~shape
+statements=aspect~draw~init~create~set~if~else~let~write~save~reflex~output~display~display_population~graphics~loop
+skills=reflex
+constants=red~green~blue~pink~cyan~magenta~yellow~black
+types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~graph~path~container~matrix
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

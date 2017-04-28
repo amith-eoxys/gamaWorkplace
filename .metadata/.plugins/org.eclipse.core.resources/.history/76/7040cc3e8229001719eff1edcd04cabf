@@ -1,0 +1,11 @@
+#
+#Tue Apr 25 12:09:22 IST 2017
+plugins=msi.gama.core~ummisco.gama.java2d
+attributes=vertices~shape
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause
+operators=envelope~-~as~<~distance_to~.~flip~+~circle~\=~one_of~\!\=~path_between
+skills=reflex
+types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~graph~path~container~topology
+statements=action~arg~using~return~init~let~loop~if~add~set~aspect~draw~create~reflex~ask~break~output~display~display_population~graphics
+species=graph_node~base_edge
+constants=green~blue~yellow~cyan~magenta

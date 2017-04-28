@@ -1,0 +1,7 @@
+#
+#Tue Apr 25 11:36:44 IST 2017
+operators=envelope~-
+plugins=msi.gama.core
+skills=reflex
+types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

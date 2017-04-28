@@ -1,0 +1,10 @@
+#
+#Thu Apr 27 14:31:28 IST 2017
+operators=-~as~envelope~point~sphere~rnd~at~rnd_color~\=~where~not~.~<~distance_to~pyramid~overlapping~one_of~first~*
+plugins=msi.gama.core~ummisco.gama.opengl
+attributes=x~y
+statements=aspect~draw~reflex~set~do~arg~if~write~init~create~ask~output~display~display_population~graphics
+skills=reflex~moving~grid
+constants=blue~black~white~green~red~dimgray~yellow
+types=string~list~int~unknown~file~geometry~point~agent~rgb~float~bool~date~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

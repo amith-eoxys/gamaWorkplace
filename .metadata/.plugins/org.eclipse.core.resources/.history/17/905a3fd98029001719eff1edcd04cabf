@@ -1,0 +1,10 @@
+#
+#Tue Apr 25 11:59:09 IST 2017
+operators=envelope~-~spatial_graph~point~add_node~add_edge~\:\:~at~with_weights~as_map~path_between~\!\=~as~circle~+
+plugins=msi.gama.core~ummisco.gama.java2d
+attributes=edges~perimeter~source~target~shape
+statements=init~add~loop~set~output~display~graphics~if~draw
+skills=reflex
+constants=yellow~cyan~magenta
+types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~graph~path
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause

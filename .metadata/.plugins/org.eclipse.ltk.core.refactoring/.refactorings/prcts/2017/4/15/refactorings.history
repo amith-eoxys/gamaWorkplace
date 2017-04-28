@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;prcts/includes/Base Model - Furnished.obj&apos; to &apos;Base_Model.obj&apos;" description="Rename resource &apos;Base Model - Furnished.obj&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="includes/Base Model - Furnished.obj" name="Base_Model.obj" stamp="1491991162583" updateReferences="true"/>
+</session>
