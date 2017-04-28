@@ -8,7 +8,8 @@
 model go2grid
 
 global {
-	list target_point <- [{3,4,0},{1,2,0},{7,3,0}];//,{100,600,0},{850,550,0}]; 
+	list target_point <- [{30,40,0},{10,20,0},{40,30,0}];//,{100,600,0},{850,550,0}]; 
+	int i <- 0;
 	
 	init {    
 		//loop times: length(target_point) {
@@ -25,15 +26,20 @@ global {
 		//cell target <- cell closest_to target_point; 
 		
 		create goal number: length(target_point){
-			loop i from:0 to: length(target_point)-1 {
-				ask target_point at i{
-			point loc <- self;
-			location <- (cell grid_at loc).location;
-			//write i;
-			//write loc;
-			}
-			}
+			/*loop i from:0 to: length(target_point)-1 {
+				//ask target_point at i{
+			point loc <- target_point at i;
+			location <- (loc).location;
+			write i;
+			write loc;
 			
+			}*/
+			
+			point loc <- (target_point at i)*2 + 1;
+			location <- (loc).location;
+			write i;
+			write loc;
+			i<-i+1;
 		}
 		create people number: 1 {
 			target <- (goal) at 2;
@@ -43,7 +49,7 @@ global {
 }
 
 grid cell width: 50 height: 50 neighbors: 4 {
-	bool is_obstacle <- flip(0.02);
+	bool is_obstacle <- flip(0.001);
 	rgb color <- is_obstacle ? #black : #white;
 } 
 	 
@@ -71,26 +77,43 @@ species people skills: [moving] {
 	}
 	
 	reflex change_goal when: target_flag{
-		target <-  (goal) at rnd(2);
+		if target.location = goal at 1{
+		int var0 <- rnd_choice([0.2,0.5,0.3]);
+		target <-  (goal) at var0;
 		target_flag <- false;
+		
+		}
+		
+		else if target.location = goal at 2{
+		int var0 <- rnd_choice([0.5,0.1,0.4]);
+		target <-  (goal) at var0;
+		target_flag <- false;
+		
+		}
+		else { //if target.location = goal at 3{
+		int var0 <- rnd_choice([0.2,0.7,0.1]);
+		target <-  (goal) at var0;
+		target_flag <- false;
+		
+		}
 	}
 	
 	reflex move {//when: location != target{
-	write target.location;
-	write location;
-	write self distance_to target;
-	if int(self distance_to target) < 3 {
+	//write target.location;
+	//write location;
+	//write self distance_to target;
+	if int(self distance_to target) < 2 {
 			target_flag <- true;
 			
 			}
-			write target_flag;
+			//write target_flag;
 		//Neighs contains all the neighbours cells that are reachable by the agent plus the cell where it's located
 		list<cell> neighs <- (cell(location) neighbors_at speed) + cell(location); 
 		
 		//We restrain the movements of the agents only at the grid of cells that are not obstacle using the on facet of the goto operator and we return the path
 		//followed by the agent
 		//the recompute_path is used to precise that we do not need to recompute the shortest path at each movement (gain of computation time): the obtsacles on the grid never change.
-		path followed_path <- self goto (on:(cell where not each.is_obstacle), target:target, speed:speed, return_path:true, recompute_path: false);
+		path followed_path <- self goto (on:(cell where not each.is_obstacle), target:target, speed:speed, return_path:true, recompute_path: true);
 		
 		//As a side note, it is also possible to use the path_between operator and follow action with a grid
 		//Add a my_path attribute of type path to the people species
