@@ -8,6 +8,7 @@
 model go2grid
 
 global {
+	int save_at <- 10000;
 	list target_point <- [{3.5,4.5,0},{10.5,20.5,0},{40.5,30.5,0}];//,{100,600,0},{850,550,0}]; 
 	int i <- 0;
 	int row_nbr <- 50;
@@ -29,17 +30,23 @@ global {
 			target <- (goal) at rnd(length(target_point)-1);
 			location <-  (one_of (cell).location);
 		}
+	}
+	
+	reflex save_grid when: cycle = save_at{
+		
+		save cell to:"../results/grid.asc" type:"asc";
+		do pause;
 	} 
 }
 
 grid cell width: row_nbr height: clm_nbr neighbors: 4 {
-	
+	//grid_value <- 0;
 } 
 	 
 species goal {
 	
 	aspect default { 
-		draw circle(0.5) color: #red;
+		draw circle(1) color: #red;
 	}
 }  
 	
@@ -50,7 +57,7 @@ species people skills: [moving] {
 	float speed <- float(2);
 	
 	aspect default {
-		draw circle(0.5) color: #green;
+		draw circle(1) color: #green;
 	}
 	
 	reflex change_goal when: target_flag{
@@ -81,6 +88,13 @@ species people skills: [moving] {
 		
 	}
 	
+	reflex update_gridvalues{
+		//ask cell{
+			//(grid_value at self.location) <- (grid_value at self.location) + 1;
+			cell(location).grid_value <- cell(location).grid_value + 1;
+			write cell(location).grid_value;
+		//}
+	}
 	reflex move {//when: location != target{
 		
 		//Neighs contains all the neighbours cells that are reachable by the agent plus the cell where it's located
