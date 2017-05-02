@@ -1,9 +1,9 @@
 #
-#Fri Apr 28 18:00:43 IST 2017
-operators=envelope~-~point~circle~as~rnd~at~.~distance_to~<~+~neighbors_at~where~not~and~\!\=~empty~intersects~flip~?~\:~length~grid_at~one_of
+#Fri Apr 28 19:08:26 IST 2017
+operators=envelope~-~point~circle~as~rnd~\=~.~at~rnd_choice~<~distance_to~+~neighbors_at~where~not~and~\!\=~empty~intersects~flip~?~\:~length~*~one_of
 plugins=msi.gama.core
-attributes=segments
-statements=aspect~draw~reflex~set~write~if~let~ask~init~create~loop~output~display~display_grid~display_population
+attributes=segments~location
+statements=aspect~draw~reflex~if~else~let~set~ask~init~create~write~output~display~display_grid~display_population
 skills=reflex~moving~grid
 constants=red~magenta~green~black~white
 types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~container~path
