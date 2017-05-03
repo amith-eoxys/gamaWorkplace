@@ -35,16 +35,16 @@ global {
 	
 	reflex save_grid when: cycle = save_at{
 		ask people{
-		save trajectories to:"../results/trajectory1.csv" type:"csv";
+		save trajectories to:"../results/trajectory10.csv" type:"csv";
 		
 		}
 		save [a,b,c,d] to:"../results/freq.csv" type:"csv";
-		save cell to:"../results/grid1.asc" type:"asc";
+		save cell to:"../results/grid10.asc" type:"asc";
 		do pause;
 	} 
 }
 
-grid cell width: row_nbr height: clm_nbr neighbors: 4 {
+grid cell width: row_nbr height: clm_nbr neighbors: 8 {
 	//grid_value <- 0;
 } 
 	 
@@ -116,7 +116,7 @@ species people skills: [moving] {
 		//We restrain the movements of the agents only at the grid of cells that are not obstacle using the on facet of the goto operator and we return the path
 		//followed by the agent
 		//the recompute_path is used to precise that we do not need to recompute the shortest path at each movement (gain of computation time): the obtsacles on the grid never change.
-		path followed_path <- self goto (on:cell, target:target, speed:speed, return_path:true, recompute_path: true);
+		path followed_path <- self goto (on:cell, target:target, speed:speed, return_path: true, recompute_path: false);
 		
 		list<geometry> segments <- followed_path.segments;
 		write segments;
