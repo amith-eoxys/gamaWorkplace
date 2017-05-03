@@ -8,14 +8,15 @@
 model go2grid
 
 global {
-	int save_at <- 1000;
-	list target_point <- [{3.5,4.5,0},{10.5,20.5,0},{40.5,30.5,0}];//,{100,600,0},{850,550,0}]; 
+	int save_at <- 10000;
+	list target_point <- [{3.5,4.5,0},{10.5,20.5,0},{40.5,30.5,0},{48.5,5.5,0}];//,{100,600,0},{850,550,0}]; 
 	int i <- 0;
 	int row_nbr <- 50;
 	int clm_nbr <- 50;
 	int a <- 0;
 	int b <- 0;
 	int c <- 0;
+	int d <- 0;
 	
 	init {    
 			create goal number: length(target_point){
@@ -34,11 +35,11 @@ global {
 	
 	reflex save_grid when: cycle = save_at{
 		ask people{
-		save trajectories to:"../results/trajectory.csv" type:"csv";
+		save trajectories to:"../results/trajectory1.csv" type:"csv";
 		
 		}
-		save [a,b,c] to:"../results/freq.csv" type:"csv";
-		save cell to:"../results/grid.asc" type:"asc";
+		save [a,b,c,d] to:"../results/freq.csv" type:"csv";
+		save cell to:"../results/grid1.asc" type:"asc";
 		do pause;
 	} 
 }
@@ -69,7 +70,7 @@ species people skills: [moving] {
 		if (target.location distance_to (goal at 0)) <= 2 {
 			a <- a + 1;
 			
-		int var0 <- rnd_choice([0,0.3,0.7]);
+		int var0 <- rnd_choice([0.05,0.3,0.2,0.45]);
 		target <-  (goal) at var0;
 		target_flag <- false;
 		
@@ -77,14 +78,21 @@ species people skills: [moving] {
 		
 		else if (target.location distance_to (goal at 1)) <= 2{
 			b <- b+1;
-		int var0 <- rnd_choice([0.3,0,0.7]);
+		int var0 <- rnd_choice([0.4,0.05,0.3,0.25]);
+		target <-  (goal) at var0;
+		target_flag <- false;
+		
+		}
+		else if (target.location distance_to (goal at 2)) <= 2{
+			c <- c+1;
+		int var0 <- rnd_choice([0.2,0.1,0,0.7]);
 		target <-  (goal) at var0;
 		target_flag <- false;
 		
 		}
 		else { //if target.location = goal at 3{
-		c<-c+1;
-		int var0 <- rnd_choice([0.5,0.5,0]);
+		d<-d+1;
+		int var0 <- rnd_choice([0.3,0.3,0.3,0.1]);
 		target <-  (goal) at var0;
 		target_flag <- false;
 		
@@ -137,6 +145,7 @@ experiment goto_grid type: gui {
 				data "A" value: a;
 				data "B" value: b;
 				data "C" value: c;
+				data "D" value: d;
 			}
 		}
 	}
