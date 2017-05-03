@@ -8,7 +8,7 @@
 model go2grid
 
 global {
-	int save_at <- 10000;
+	int save_at <- 1000;
 	list target_point <- [{3.5,4.5,0},{10.5,20.5,0},{40.5,30.5,0}];//,{100,600,0},{850,550,0}]; 
 	int i <- 0;
 	int row_nbr <- 50;
@@ -23,7 +23,7 @@ global {
 			point loc <- (target_point at i)*2;
 			location <- (loc).location;
 			//write i;
-			write loc;
+			//write loc;
 			i<-i+1;
 		}
 		create people number: 1 {
@@ -33,7 +33,11 @@ global {
 	}
 	
 	reflex save_grid when: cycle = save_at{
+		ask people{
+		save trajectories to:"../results/trajectory.csv" type:"csv";
 		
+		}
+		save [a,b,c] to:"../results/freq.csv" type:"csv";
 		save cell to:"../results/grid.asc" type:"asc";
 		do pause;
 	} 
@@ -55,6 +59,7 @@ species people skills: [moving] {
 	bool target_flag <- false;
 	goal target ;//<- one_of (goal);
 	float speed <- float(2);
+	list<geometry> trajectories;
 	
 	aspect default {
 		draw circle(1) color: #green;
@@ -84,7 +89,7 @@ species people skills: [moving] {
 		target_flag <- false;
 		
 		}
-		write [a,b,c];
+		//write [a,b,c];
 		
 	}
 	
@@ -92,7 +97,7 @@ species people skills: [moving] {
 		//ask cell{
 			//(grid_value at self.location) <- (grid_value at self.location) + 1;
 			cell(location).grid_value <- cell(location).grid_value + 1;
-			write cell(location).grid_value;
+			//write cell(location).grid_value;
 		//}
 	}
 	reflex move {//when: location != target{
@@ -105,6 +110,14 @@ species people skills: [moving] {
 		//the recompute_path is used to precise that we do not need to recompute the shortest path at each movement (gain of computation time): the obtsacles on the grid never change.
 		path followed_path <- self goto (on:cell, target:target, speed:speed, return_path:true, recompute_path: true);
 		
+		list<geometry> segments <- followed_path.segments;
+		write segments;
+		
+		loop line over: segments
+		{
+			trajectories << line;
+		}	
+			
 		if int(self distance_to target) <= 2 {
 			target_flag <- true;
 			
