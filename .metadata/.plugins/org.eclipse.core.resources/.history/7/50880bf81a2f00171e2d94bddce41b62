@@ -1,0 +1,10 @@
+#
+#Tue May 02 15:06:56 IST 2017
+operators=envelope~-~point~circle~as~rnd~\=~.~+~<~distance_to~at~rnd_choice~neighbors_at~<\=~length~*~one_of
+plugins=msi.gama.core
+attributes=segments~perimeter~location
+statements=aspect~draw~reflex~set~if~else~write~let~loop~add~init~create~ask~save~arg~do~output~display~display_grid~display_population~chart~data
+skills=reflex~moving~grid
+constants=red~green~white~black
+types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~container~path
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

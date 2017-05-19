@@ -1,0 +1,10 @@
+#
+#Mon May 08 12:32:04 IST 2017
+operators=envelope~-~*~rgb~+~rnd~\!\=~.~where~neighbours_at~as~\=~not~>~with_min_of~distance_to~union~mod~one_of~copy~or~and~<~with_max_of~at_distance~>\=~<\=~min~/~empty~first~circle~triangle~rnd_float~in~internal_at~square
+plugins=msi.gama.core
+attributes=keys
+statements=action~arg~let~if~ask~set~loop~add~return~init~reflex~else~create~aspect~draw~output~display~display_grid~display_population
+skills=reflex~moving~grid
+constants=h~gray~green~yellow~blue~cyan~white~black
+types=geometry~string~list~int~unknown~point~agent~rgb~float~bool~date~map~container
+actions=debug~error~tell~write~die~_init_~_step_~halt~pause~follow~goto~move~wander

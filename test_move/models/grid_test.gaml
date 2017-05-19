@@ -9,7 +9,7 @@ model test_code
 
 global {
 	//Shapefile of the walls
-	file wall_shapefile <- file("../includes/house.dxf");
+	file wall_shapefile <- file("../includes/kat1.dxf");
 	
 	//DImension of the grid agent
 	int nb_cols <- 50;

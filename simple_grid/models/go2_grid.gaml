@@ -8,8 +8,12 @@
 model go2grid
 
 global {
+	string algorithm <- "A*" among: ["A*", "Dijkstra", "JPS", "BF"] parameter: true;
+	int neighborhood_type <- 8 among:[4,8] parameter: true;
+	path my_path <- nil;
+	map<cell,float> cell_weights;
 	int save_at <- 10000;
-	list target_point <- [{3.5,4.5,0},{10.5,20.5,0},{40.5,30.5,0},{48.5,5.5,0}];//,{100,600,0},{850,550,0}]; 
+	list target_point <- [{7.5,40.5,0},{35.5,45.5,0},{5.5,6.5,0},{45.5,8.5,0}];//,{100,600,0},{850,550,0}]; 
 	int i <- 0;
 	int row_nbr <- 50;
 	int clm_nbr <- 50;
@@ -22,13 +26,14 @@ global {
 			create goal number: length(target_point){
 					
 			point loc <- (target_point at i)*2;
-			location <- (loc).location;
+			location <- (loc);//.location;
 			//write i;
-			//write loc;
+			write location;
 			i<-i+1;
 		}
+		cell_weights <- cell as_map (each::each.grid_value);
 		create people number: 1 {
-			target <- (goal) at rnd(length(target_point)-1);
+			target <- (goal) at 1;//rnd(length(target_point)-1);
 			location <-  (one_of (cell).location);
 		}
 	}
@@ -44,7 +49,7 @@ global {
 	} 
 }
 
-grid cell width: row_nbr height: clm_nbr neighbors: 8 {
+grid cell width: 50 height: 50 neighbors: neighborhood_type optimizer: algorithm {
 	//grid_value <- 0;
 } 
 	 
@@ -60,17 +65,21 @@ species people skills: [moving] {
 	bool target_flag <- false;
 	goal target ;//<- one_of (goal);
 	float speed <- float(2);
+	path my_path ;
 	list<geometry> trajectories;
 	
 	aspect default {
 		draw circle(1) color: #green;
+		if (current_path != nil) {
+			draw current_path.shape color: #red;
+		}
 	}
 	
 	reflex change_goal when: target_flag{
 		if (target.location distance_to (goal at 0)) <= 2 {
 			a <- a + 1;
 			
-		int var0 <- rnd_choice([0.05,0.3,0.2,0.45]);
+		int var0 <- rnd_choice([0.25,0.25,0.25,0.25]);
 		target <-  (goal) at var0;
 		target_flag <- false;
 		
@@ -78,21 +87,21 @@ species people skills: [moving] {
 		
 		else if (target.location distance_to (goal at 1)) <= 2{
 			b <- b+1;
-		int var0 <- rnd_choice([0.4,0.05,0.3,0.25]);
+		int var0 <- rnd_choice([0.25,0.25,0.25,0.25]);
 		target <-  (goal) at var0;
 		target_flag <- false;
 		
 		}
 		else if (target.location distance_to (goal at 2)) <= 2{
 			c <- c+1;
-		int var0 <- rnd_choice([0.2,0.1,0,0.7]);
+		int var0 <- rnd_choice([0.25,0.25,0.25,0.25]);
 		target <-  (goal) at var0;
 		target_flag <- false;
 		
 		}
 		else { //if target.location = goal at 3{
 		d<-d+1;
-		int var0 <- rnd_choice([0.3,0.3,0.3,0.1]);
+		int var0 <- rnd_choice([0.25,0.25,0.25,0.25]);
 		target <-  (goal) at var0;
 		target_flag <- false;
 		
@@ -110,25 +119,33 @@ species people skills: [moving] {
 	}
 	reflex move {//when: location != target{
 		
-		//Neighs contains all the neighbours cells that are reachable by the agent plus the cell where it's located
-		list<cell> neighs <- (cell(location) neighbors_at speed) + cell(location); 
 		
-		//We restrain the movements of the agents only at the grid of cells that are not obstacle using the on facet of the goto operator and we return the path
-		//followed by the agent
-		//the recompute_path is used to precise that we do not need to recompute the shortest path at each movement (gain of computation time): the obtsacles on the grid never change.
-		path followed_path <- self goto (on:cell, target:target, speed:speed, return_path: true, recompute_path: false);
+		/*path followed_path <- self goto (on:cell, target:target, speed:speed, return_path: true, recompute_path: false);
 		
 		list<geometry> segments <- followed_path.segments;
-		write segments;
+		write followed_path;
 		
 		loop line over: segments
 		{
 			trajectories << line;
 		}	
-			
+			*/
+		write target;
+		path followed_path <- self  goto (on:cell_weights, target:target, speed:speed, recompute_path: false);//on:(cell),
+		write followed_path;
+		/*write path_between(cell, self.location, target);
+		
+		if my_path = nil {
+			 my_path <- path_between(cell, self.location, target);
+		}else{
+		do follow (path: my_path);
+		}*/
+		
+		
+		
 		if int(self distance_to target) <= 2 {
 			target_flag <- true;
-			
+			my_path <- nil;
 			}	
 	}
 }

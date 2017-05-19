@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;simple_grid/results/freq.csv&apos;" deleteContents="false" description="Delete resource &apos;simple_grid/results/freq.csv&apos;" element1="/simple_grid/results/freq.csv" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1494241071158"/>&#x0A;<refactoring comment="Delete resource &apos;simple_grid/results/grid10.asc&apos;" deleteContents="false" description="Delete resource &apos;simple_grid/results/grid10.asc&apos;" element1="/simple_grid/results/grid10.asc" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1494241077773"/>
+</session>

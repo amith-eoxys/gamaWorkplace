@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;test_move/includes/0F - without doors, windows, furnitures.dxf&apos; to &apos;kat1.dxf&apos;" description="Rename resource &apos;0F - without doors, windows, furnitures.dxf&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="includes/0F - without doors, windows, furnitures.dxf" name="kat1.dxf" stamp="1493794757362" updateReferences="true"/>
+</session>
